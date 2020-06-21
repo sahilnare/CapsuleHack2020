@@ -11,16 +11,10 @@ git clone https://github.com/sahilnare/CapsuleHack2020.git
 cd EcoFriend
 
 # Install dependencies
-yarn (or npm install)
-
-# Start development server
-yarn dev (or npm run dev)
-
-# Build for production
-yarn build (or npm run build)
+npm install
 
 # Start production server
-yarn start (or npm start)
+npm start
 ```
 
 
