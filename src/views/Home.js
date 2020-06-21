@@ -15,7 +15,7 @@ class Home extends React.Component {
 
     return (
       <div id="home">
-          <h2>Home!</h2>
+          <h1 style={{margin: "80px auto", textAlign: "center", color: "green", fontSize: "80px"}}>Ecofriend</h1>
       </div>
     )
   }

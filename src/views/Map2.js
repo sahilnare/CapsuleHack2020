@@ -8,7 +8,7 @@ const locIcon = { url: require('../icons/location.png'), scaledSize: { width: 60
 
 const Map2 = withScriptjs(withGoogleMap((props) =>{
 
-    
+
   return (
     <React.Fragment>
       <div id="route-links" >
@@ -23,30 +23,32 @@ const Map2 = withScriptjs(withGoogleMap((props) =>{
             <th>Carbon Footprint</th>
           </tr>
           {
-            
+
             props.directions &&
-            props.directions.routes.concat(props.busDirections.routes).concat(props.carDirections.routes).map((route, ind) => {
-                
-                
-                let time = route.legs[0].duration.text
-                let souRce = route.legs[0].start_address.split(" ")
-                let source = souRce.slice(souRce.length-4, souRce.length-2).join(" ")
-                let desTination = route.legs[0].end_address.split(" ")
-                let destination = desTination.slice(desTination.length-4, desTination.length-2).join(" ")
-                return (
-                  <tr className={Math.round(props.emission[ind]) === Math.round(Math.min(...props.emission)) ? "maxim" : "minim"} key={ind} onMouseEnter={() => props.getRoute(ind)}>
-                    <td data-th="Source">{source}</td>
-                    <td data-th="Destination">{destination}</td>
-                    <td data-th="Time">{time}</td>
-                    <td data-th="Mode of Transport">{route.emissionType}</td>
-                    <td data-th="Carbon Footprint">{props.emission[ind] ? (<span>{Math.round(props.emission[ind])} kg</span>) : null}</td>
-                  </tr>
-                )
-            })
+            (props.directions && props.busDirections && props.carDirections) ? (
+              props.directions.routes.concat(props.busDirections.routes).concat(props.carDirections.routes).map((route, ind) => {
+
+
+                  let time = route.legs[0].duration.text
+                  let souRce = route.legs[0].start_address.split(" ")
+                  let source = souRce.slice(souRce.length-4, souRce.length-2).join(" ")
+                  let desTination = route.legs[0].end_address.split(" ")
+                  let destination = desTination.slice(desTination.length-4, desTination.length-2).join(" ")
+                  return (
+                    <tr className={Math.round(props.emission[ind]) === Math.round(Math.min(...props.emission)) ? "maxim" : "minim"} key={ind} onMouseEnter={() => props.getRoute(ind)}>
+                      <td data-th="Source">{source}</td>
+                      <td data-th="Destination">{destination}</td>
+                      <td data-th="Time">{time}</td>
+                      <td data-th="Mode of Transport">{route.emissionType}</td>
+                      <td data-th="Carbon Footprint">{props.emission[ind] ? (<span>{Math.round(props.emission[ind])} kg</span>) : null}</td>
+                    </tr>
+                  )
+              })
+            ) : null
           }
         </table>
-        
-      
+
+
       </div>
       <div id="map-hold">
       <GoogleMap
@@ -111,7 +113,7 @@ const Map2 = withScriptjs(withGoogleMap((props) =>{
       )*/
 
       (props.routeType == "train" ? <DirectionsRenderer directions={props.directions} routeIndex={props.routeIndex} />
-      : (props.routeType == "car" ? <DirectionsRenderer directions={props.carDirections} routeIndex={props.routeIndex-5} /> 
+      : (props.routeType == "car" ? <DirectionsRenderer directions={props.carDirections} routeIndex={props.routeIndex-5} />
       : (<DirectionsRenderer directions={props.busDirections} routeIndex={props.routeIndex-4} />)))
 
       /*(
@@ -132,7 +134,7 @@ const Map2 = withScriptjs(withGoogleMap((props) =>{
 
     }
 
-    {props.polyPath ? 
+    {props.polyPath ?
     <Polyline
       path={props.polyPath}
       geodesic={true}
